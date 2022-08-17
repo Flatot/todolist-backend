@@ -1,4 +1,4 @@
-const { createNewUser, listUsers } = require('../db/user');
+const { createNewUser, listUsers, updateUserToken } = require('../db/user');
 var express = require('express');
 var router = express.Router();
 
@@ -13,6 +13,20 @@ router.post('/', (req, res) => {
     }
     else {
         res.status(400).send("Missing email or password in body");
+    }
+})
+
+router.patch('/:userId', (req, res) => {
+    if (req.params.userId && req.body.token) {
+        updateUserToken(req.params.userId, req.body.token).then(result => {
+            res.status(200).send(result);
+        }).catch(err => {
+            console.log(err)
+            res.status(err.code).send(err.message);
+        })
+    }
+    else {
+        res.status(400).send("Missing user id or token");
     }
 })
 

@@ -1,6 +1,8 @@
 const { getFirestore } = require('firebase-admin/firestore');
 const db = getFirestore();
 
+const { sendNotification } = require('./messaging.js');
+
 async function createNewTodoList(list) {
     const docRef = db.collection('todo-list').doc();
 
@@ -21,6 +23,16 @@ async function updateTodoList(todoList, list) {
     }
     if (list.users) {
         data.users = list.users;
+
+        var message = {
+            notification: {
+                title: 'New Flatodo',
+                body: 'You has been invited in a new flatodo'
+            },
+            data: { todoListId: todoList },
+            tokens: [],
+        };
+        sendNotification(message, list.users);
     }
     await docRef.update(data);
     await docRef.collection("items");

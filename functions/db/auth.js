@@ -1,5 +1,6 @@
 const { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } = require("firebase/auth");
 const { initializeApp } = require("firebase/app");
+
 const firebaseConfig = {
   apiKey: "AIzaSyAUXF3JjscryLr4qHQGg6ZeE4UpCZGqH0U",
   authDomain: "todo-list-b7734.firebaseapp.com",

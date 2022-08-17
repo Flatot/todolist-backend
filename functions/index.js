@@ -1,17 +1,13 @@
 const functions = require('firebase-functions');
-const admin = require("firebase-admin");
-var serviceAccount = require("./todo-list-b7734-firebase.json");
+const { admin } = require('./constant');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
 // LIST OF API FILES
 const todo = require('./api/todo');
 const auth = require('./api/auth');
 const user = require('./api/user');
 
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
 
 const express = require('express');
 const app = express();

@@ -20,5 +20,24 @@ async function listUsers() {
     })
 }
 
+async function updateUserToken(userId, token) {
+    const docRef = db.collection('users').doc(userId);
+
+    await docRef.update({
+        token: token
+    });
+    const updatedDocRef = db.collection('users').doc(userId).get();
+    return { id: updatedDocRef.id, ...(await updatedDocRef).data() };
+}
+
+async function getToken(userId) {
+    const docRef = db.collection('users').doc(userId).get();
+
+    var data = (await docRef).data();
+    return data?.token;
+}
+
 module.exports.createNewUser = createNewUser;
+module.exports.updateUserToken = updateUserToken;
 module.exports.listUsers = listUsers;
+module.exports.getToken = getToken;
